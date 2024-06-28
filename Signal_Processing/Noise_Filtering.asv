@@ -1,0 +1,26 @@
+clc, clearvars;
+[y,Fs] = audioread("Noise_Removal.wav");
+%t = (0:length(y)-1)/Fs; 
+L = length(y);
+%plot(t,y);
+figure(1)
+Y = fft(y);
+%plot(Fs/L *(0:L-1),abs(Y),"Linewidth",3);
+%xlabel('f');
+%ylabel('X(f)');
+%title('Unfiltered_Audio');
+%Filtering
+
+Fc = 00;
+n = 4; %let us just try a 4th order filter
+Wn = Fc/(Fs/2);
+[b,a] = butter(n,Wn,'low');
+filtered_output = filter(b,a,y);
+
+filtered_fft = fft(filtered_output);
+N = length(filtered_output);
+figure(2)
+plot(Fs/N*(0:N-1),abs(filtered_fft),"Linewidth",3);
+xlabel('f');
+ylabel('X(f)');
+title('Filtered Audio');

@@ -1,0 +1,13 @@
+import matplotlib.pyplot as plt
+import soundfile as sf
+import numpy as np
+y,fs = sf.read("Muffled_Noise_wav.wav")
+Y = np.fft.fft(y)
+freq = np.fft.ffreq(len(Y), 1/fs)
+plt.plot(freq,Y)
+plt.grid(True)
+plt.xlabel('t')
+plt.ylabel('y(t)')
+plt.show()
+
+
