@@ -5,7 +5,7 @@ Y = fftshift(fft(y));
 N = length(y);
 freq = (-N/2:N/2-1)*(Fs/N);
 
-subplot(2,1,1);
+subplot(3,1,1);
 plot(freq,abs(Y),"Linewidth",3);
 title('UF');
 xlabel('f');
@@ -23,10 +23,27 @@ Rs = 30; %Stopband attenuation
 filtered_output = filtfilt(sos,g,y);
 gain = db2mag(10);
 filtered_output = filtered_output * gain;
-audiowrite("Z_Bandpass_Output.wav",filtered_output,Fs);
 
-subplot(2,1,2)
+
+Wp_notch =  [1390,1410]/(Fs/2);
+Ws_notch = [1399,1401]/(Fs/2);
+[n_notch,Wn_notch] = buttord(Wp_notch,Ws_notch,Rp,Rs);
+[z_n, p_n, k_n] = butter(n_notch, Wn_notch, 'stop');
+[sos_n,g_n] = zp2sos(z_n, p_n, k_n);
+final_output = filtfilt(sos_n,g_n,filtered_output);
+
+audiowrite("Y_Bandpass_Output.wav",final_output,Fs);
+subplot(3,1,3)
+plot(freq,abs(fftshift(fft(final_output))),"Linewidth",3);
+title('BPF + Notch');
+xlabel('f');
+ylabel('X(f)');
+
+subplot(3,1,2)
 plot(freq, abs(fftshift(fft(filtered_output))),"Linewidth",3);
-title = ("Bandpass Filtering");
-xlabel("f");
-ylabel("X(f)");
+title = ('BP');
+xlabel('freq');
+ylabel('B(f)');
+
+
+
