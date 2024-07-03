@@ -5,7 +5,7 @@ Y = fftshift(fft(y));
 N = length(y);
 freq = (-N/2:N/2-1)*(Fs/N);
 
-subplot(4,1,1);
+subplot(2,1,1);
 plot(freq,abs(Y),"Linewidth",3);
 title('UF');
 xlabel('f');
@@ -40,13 +40,13 @@ Ws_bs = [880,920]/(Fs/2);
 final_output = filtfilt(sos_bs, g_bs, penultimate_output);
 audiowrite("Filtered_output.wav",final_output,Fs);
 
-subplot(4,1,4);
+subplot(2,1,2);
 plot(freq,abs(fftshift(fft(final_output))),"Linewidth",3);
 title('Final');
 xlabel('f');
 ylabel('X(f)');
 
-
+%{
 subplot(4,1,3);
 plot(freq,abs(fftshift(fft(penultimate_output))),"Linewidth",3);
 title('BPF + Notch');
@@ -58,6 +58,7 @@ plot(freq, abs(fftshift(fft(filtered_output))),"Linewidth",3);
 title = ('BP');
 xlabel('freq');
 ylabel('B(f)');
+%}
 
 
 
