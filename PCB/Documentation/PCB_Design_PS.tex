@@ -83,7 +83,11 @@ As is evident, if $V_0$, $V_1$ and $V_2$ are taken to be the bits that make up a
 As can be seen in the figure \autoref{SPICE}, in V(n002), the output of the op-amp, the signal is in the form of steps. This definitely is wrong, and can be reasoned easily. If a smooth wave is first passed through an ADC, it produces a stream of bits. Theoretically, if these stream of bits were to be put back into a DAC, they must produce back the same signal\footnote{notwithstanding the issue of number of bits, for now let us assume that the number of bits is sufficient to reconstruct the signal satisfactorily.}. But the output of the op-amp, however, is in the form of steps as remarked before. Hence, when a smooth wave is put into an ADC, and put into the above designed DAC, and output be generated from the output pin of the op-amp, we would not get back the same signal. \\ \bigskip
 This entire detour is to draw attention to the fact that the output from the op-amp must be filtered using a lowpass filter in order to atleast approximately output the right signal. In our circuit, this has been carried out by a simple first-order RC lowpass filter, and the filtered output can be seen in V(vout), in figure \autoref{SPICE}  
 
-\chapter{PCB Design}
+\chapter{Power Rating and PCB Design}
+
+After figuring out the maximum possible current and voltage at which all components in the PCB can function safely and properly, the power rating has been found as 15.8$mW$.
+\\ \bigskip
+
 The KiCAD EDA\textsuperscript{\textregistered} schematic and PCB layout for the aforementioned DAC can be found \href{https://github.com/HarryNyquist/Elektronica/tree/main/PCB/ADC_DAC_Converter/DAC_Converter%20-%20KiCAD}{\underline{\textbf{here}}}
 \\ \bigskip
 The LTSpice\textsuperscript{\textregistered} simulation for the same can be found \href{https://github.com/HarryNyquist/Elektronica/tree/main/PCB/ADC_DAC_Converter/DAC_Converter%20-%20LTSpice%20Simulations}{\underline{\textbf{here}}}
